@@ -1,0 +1,71 @@
+# Transweb APP&API
+# Docker setup
+version: '2'
+
+networks:
+    transweb_network:
+        driver: bridge
+
+services:
+    nginx:
+        image: 'nginx:latest'
+        ports:
+            - '80:80'
+        links:
+            - phpfpm
+        volumes:
+            - ./nginx/app.conf:/etc/nginx/conf.d/site.conf
+            - ./public_app:/myapps
+        networks:
+            transweb_network:
+                aliases:
+                    - nginx
+
+    # php fpm custom image
+    # including wkhtmltopdf installed inside by dockerfile
+    # as a binary
+    #
+    phpfpm:
+        build: './fpm'
+        ports:
+            - '9000:9000'
+        volumes:
+            - ./public_app:/myapps
+        networks:
+            transweb_network:
+                aliases:
+                    - phpfpm
+
+    mysql:
+        image: 'mysql:5.7'
+        ports:
+            # <Port exposed> : < MySQL Port running inside container>
+            - '3306:3306'
+        command: mysqld --sql_mode=""
+        volumes:
+            - ./db-data:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: mysql
+            MYSQL_USER: crawler
+            MYSQL_PASSWORD: ZYznqA58t7R3
+            MYSQL_ROOT_PASSWORD: testroothaslo # mysql root password
+        networks:
+            transweb_network:
+                aliases:
+                    - mysql
+
+    phpmyadmin:
+        image: 'phpmyadmin/phpmyadmin'
+        restart: always
+        ports:
+        - '5003:80'
+        links:
+            - mysql:mysql
+        environment:
+            MYSQL_USERNAME: root
+            MYSQL_ROOT_PASSWORD: testroothaslo  # tu bylo to co zawsze xD
+            PMA_HOST: mysql
+        networks:
+            transweb_network:
+                aliases:
+                    - phpmyadmin
