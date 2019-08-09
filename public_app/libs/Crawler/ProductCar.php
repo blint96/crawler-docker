@@ -49,6 +49,7 @@ class ProductCar extends Product
         'Benzyna' => 0,
         'Diesel' => 1,
         'LPG' => 2,
+        'CNG i Hybryda' => 3
     ];
 
     /**
