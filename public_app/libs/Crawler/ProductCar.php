@@ -58,10 +58,12 @@ class ProductCar extends Product
     public function save($dbHandler)
     {
         $images = implode(',', $this->images);
-        $dbHandler->query("INSERT INTO cars VALUES(NULL, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?, ?, ?)",
-            [$this->brand, $this->model, $this->engine, $this->year, $this->hp, $this->mileage, $this->color, 
-            $this->damaged, $this->automated, $this->fuel, $this->countryFrom, $this->url, $this->id, $this->price, 
-            $this->region, $this->city, $this->description, $images]);
+        $check = $dbHandler->query("SELECT * FROM cars WHERE original_id = ? LIMIT 1", [$this->id]);
+        if($check->num_rows() == 0)
+            $dbHandler->query("INSERT INTO cars VALUES(NULL, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?, ?, ?, NULL)",
+                [$this->brand, $this->model, $this->engine, $this->year, $this->hp, $this->mileage, $this->color, 
+                $this->damaged, $this->automated, $this->fuel, $this->countryFrom, $this->url, $this->id, $this->price, 
+                $this->region, $this->city, $this->description, $images]);
     }
 
     public static function parseDetailsTable($array, $index, $product)

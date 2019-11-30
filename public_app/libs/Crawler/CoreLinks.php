@@ -201,13 +201,13 @@ class CoreLinks
 		// prevent from crawling already crawled 
 		// website
 		if(isset($this->visited[$url]) && strcmp($url, $this->initUrl) != 0) {
-			//var_dump("break i chuj");
+			var_dump("break i chuj");
 			return false;
 		}
 
 		// temporary
 		if (microtime(true) - $this->limitStart >= $this->limitSeconds) {
-			//var_dump("break");
+			var_dump("break");
 		    return false;
 		}
 
