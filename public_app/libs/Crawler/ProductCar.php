@@ -66,6 +66,38 @@ class ProductCar extends Product
                 $this->region, $this->city, $this->description, $images]);
     }
 
+    /**
+     * Parse DOM for OTOMOTO
+     */
+    public static function parseDetailsOtomoto($product, $label, $value) {
+        if(strpos($label, "Marka pojazdu") !== false) {
+            $product->brand = $value;
+        } else if(strpos($label, "Model pojazdu") !== false) {
+            $product->model = $value;
+        } else if(strpos($label, "Rok produkcji") !== false) {
+            $product->year = intval($value);
+        } else if(strpos($label, "Pojemność skokowa") !== false) {
+            $product->engine = intval(str_replace(' ', '', $value));
+        } else if(strpos($label, "Rodzaj paliwa") !== false) {
+            $product->fuel = self::$fuelTypes[$value];
+        } else if(strpos($label, "Moc") !== false) {
+            $product->hp = intval($value);
+        } else if(strpos($label, "Przebieg") !== false) {
+            $product->mileage = intval(str_replace(' ', '', $value));
+        } else if(strpos($label, "Typ") !== false) {
+           // $product->model = $value;
+        } else if(strpos($label, "Kolor") !== false) {
+            $product->color = $value;
+        } else if(strpos($label, "Bezwypadkowy") !== false) {
+            $product->damaged = $value === "Tak" ? 0 : 1;
+        } else if(strpos($label, "Skrzynia biegów") !== false) {
+            $product->automated = strpos($value, "Automatyczna") !== false ? 1 : 0;
+        }
+    }
+
+    /**
+     * Parse DOM for OLX
+     */
     public static function parseDetailsTable($array, $index, $product)
     {
         if(strpos($array[$index], "Marka") !== false) {

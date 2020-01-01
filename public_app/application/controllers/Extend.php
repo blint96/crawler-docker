@@ -1,7 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Getting car links for OLX
+ */
 class Extend extends CI_Controller {
+
+    private $directory = "cache/olx/";
 
     private $brands = [
         "alfa-romeo", "audi", "bmw", "cadillac", "chevrolet", "chrysler", "citroen", "dacia", "daewoo", "renault",
@@ -11,14 +16,14 @@ class Extend extends CI_Controller {
 	public function index()
 	{
         foreach($this->brands as $brand) {
-            file_put_contents($brand . ".txt", "1");
+            file_put_contents($this->directory . $brand . ".txt", "1");
         }
     }
 
     public function links() {
         $_brand = NULL; $_counter = 1;
         foreach($this->brands as $brand) {
-            $counter = (int) file_get_contents($brand . ".txt");
+            $counter = (int) file_get_contents($this->directory . $brand . ".txt");
             if($counter < 500) {
                 $_brand = $brand;
                 $_counter = $counter;
@@ -32,7 +37,7 @@ class Extend extends CI_Controller {
             $crawler->init();
             
             $_counter += 1;
-            file_put_contents($_brand . ".txt", $_counter);
+            file_put_contents($this->directory . $_brand . ".txt", $_counter);
         }
 
         var_dump($_brand);

@@ -38,20 +38,6 @@ class Crawler extends CI_Controller {
 			$this->db->query("UPDATE cars SET elastic = ? WHERE id = ?", [time(), $db_id]);
 		}
 	}
-	
-	/**
-	 * To już ta finalna metoda do ściągania wszystkich samochodów z OLXa
-	 * Wszystkich, tj. wszystkie strony /motoryzacja/
-	 */
-	public function vehicle()
-	{
-		$test = file_get_contents("page.txt");
-		$starturl = "https://www.olx.pl/motoryzacja/samochody/?page=" . $test;
-		$test = (int) $test + 1;
-		file_put_contents("page.txt", $test);
-		$crawler = new Crawler\CoreLinks($starturl, $this->db, "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0", 1, []);
-		$crawler->init();
-	}
 
 	/**
 	 * To jest pobieranie szczegółowych danych nt.
@@ -79,7 +65,21 @@ class Crawler extends CI_Controller {
 		}
 	}
 	
-	public function test()
+	/**
+	 * To już ta finalna metoda do ściągania wszystkich samochodów z OLXa
+	 * Wszystkich, tj. wszystkie strony /motoryzacja/
+	 */
+	/*public function vehicle()
+	{
+		$test = file_get_contents("page.txt");
+		$starturl = "https://www.olx.pl/motoryzacja/samochody/?page=" . $test;
+		$test = (int) $test + 1;
+		file_put_contents("page.txt", $test);
+		$crawler = new Crawler\CoreLinks($starturl, $this->db, "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0", 1, []);
+		$crawler->init();
+	}*/
+	
+	/*public function test()
 	{
 		$query = $this->db->query("SELECT * FROM fresh 
 			WHERE `link` LIKE '%oferta%' 
@@ -150,5 +150,5 @@ class Crawler extends CI_Controller {
 
 		//$response = $crawler->getContent();
 		//var_dump($response);
-	}
+	}*/
 }
