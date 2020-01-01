@@ -181,7 +181,9 @@ class CoreLinks
 		]);
 
 		 /* Get the HTML or whatever is linked in $url. */
-        $response = curl_exec($curl);
+		$response = curl_exec($curl);
+
+		//var_dump($response);
 
         // response total time
         $time = curl_getinfo($curl, CURLINFO_TOTAL_TIME);

@@ -61,7 +61,7 @@ class Crawler extends CI_Controller {
 	{
 		$query = $this->db->query("SELECT * FROM vehicles 
 			WHERE `date` IS NULL 
-			ORDER BY id ASC LIMIT 30");
+			ORDER BY id ASC LIMIT 60");
 		$result = $query->result_array();
 
 		// set visited

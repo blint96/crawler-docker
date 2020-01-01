@@ -34,5 +34,7 @@ class Extend extends CI_Controller {
             $_counter += 1;
             file_put_contents($_brand . ".txt", $_counter);
         }
+
+        var_dump($_brand);
     }
 }
