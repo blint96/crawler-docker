@@ -8,7 +8,7 @@ class Crawler extends CI_Controller {
 	public function elastic()
 	{
 		header('Content-Type: application/json');
-		$query = $this->db->query("SELECT * FROM cars WHERE `elastic` IS NULL ORDER BY id ASC LIMIT 50");
+		$query = $this->db->query("SELECT * FROM cars WHERE `elastic` IS NULL ORDER BY id ASC LIMIT 150");
 		$result = $query->result_array();
 
 		// Authorization: Basic dXNlcjpYTmdSV1hCWFdOSDE=
@@ -22,12 +22,12 @@ class Crawler extends CI_Controller {
 
 			$payload = json_encode($r);
 
-			$ch = curl_init('http://34.90.90.63/elasticsearch/auta/auto/' . $original_id);                                                                      
+			$ch = curl_init('http://34.89.133.205/elasticsearch/auta/auto/' . $original_id);                                                                      
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(      
-				'Authorization: Basic dXNlcjpYTmdSV1hCWFdOSDE=',                                                                  
+				'Authorization: Basic dXNlcjpBTFJFNjNvSG5TMzQ=',                                                                  
 				'Content-Type: application/json',                                                                                
 				'Content-Length: ' . strlen($payload))                                                                       
 			);                                                                                                                   
