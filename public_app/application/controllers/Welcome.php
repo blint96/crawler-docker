@@ -20,10 +20,30 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$query = $this->db->query("SELECT * FROM links");
-		$this->load->view('welcome_message');
+		//$query = $this->db->query("SELECT * FROM links");
+		//$this->load->view('welcome_message');
 
-		var_dump(filter_var('vnestea@wp.pl', FILTER_VALIDATE_EMAIL));
+		//var_dump(filter_var('vnestea@wp.pl', FILTER_VALIDATE_EMAIL));
+
+		date_default_timezone_set('Europe/Warsaw');
+
+		$olx = $this->db->query("SELECT * FROM cars");
+		$otomoto = $this->db->query("SELECT * FROM cars_otomoto");
+
+		$links_olx = $this->db->query("SELECT * FROM vehicles WHERE date IS NULL");
+		$links_otomoto = $this->db->query("SELECT * FROM vehicles_otomoto WHERE date IS NULL");
+
+		$last_olx_car = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['LAST_OLX_CAR']);
+		$last_otomoto_car = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['LAST_OTOMOTO_CAR']);
+
+		$data["olx_count"] = $olx->num_rows();
+		$data["om_count"] = $otomoto->num_rows();
+		$data["lolx_count"] = $links_olx->num_rows();
+		$data["lom_count"] = $links_otomoto->num_rows();
+
+		$data["last_olx"] = $last_olx_car->row();
+		$data["last_otomoto"] = $last_otomoto_car->row();
+		$this->load->view('welcome_message', $data);
 	}
 
 	public function test2()

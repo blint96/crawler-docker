@@ -110,9 +110,9 @@ class OTOMOTO_Cars_Core extends Core
                 $product->city = $json['city_name'];
                 $product->description = $description;
                 $product->images = $img_array;
-                $product->save($this->db);
-                var_dump($product);
-                die();
+                $product->saveOtomoto($this->db);
+                //var_dump($product);
+                //die();
                 break;
             }
         }

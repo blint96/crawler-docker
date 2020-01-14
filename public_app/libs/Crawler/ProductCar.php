@@ -49,8 +49,26 @@ class ProductCar extends Product
         'Benzyna' => 0,
         'Diesel' => 1,
         'LPG' => 2,
-        'CNG i Hybryda' => 3
+        'CNG i Hybryda' => 3,
+        'Benzyna+LPG' => 2,
+        'Elektryczny' => 4,
+        'Hybryda' => 3
     ];
+
+    /**
+     * Save car from otomoto
+     */
+    public function saveOtomoto($dbHandler) {
+        $images = implode(',', $this->images);
+        $check = $dbHandler->query("SELECT * FROM cars_otomoto WHERE original_id = ? LIMIT 1", [$this->id]);
+        if($check->num_rows() == 0) {
+            $dbHandler->query("INSERT INTO cars_otomoto VALUES(NULL, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?, ?, ?, NULL)",
+                [$this->brand, $this->model, $this->engine, $this->year, $this->hp, $this->mileage, $this->color, 
+                $this->damaged, $this->automated, $this->fuel, $this->countryFrom, $this->url, $this->id, $this->price, 
+                $this->region, $this->city, $this->description, $images]);
+                $dbHandler->query("UPDATE cached SET value = ? WHERE name = ?", [time(), 'LAST_OTOMOTO_CAR']);
+        }
+    }
 
     /**
      * Save to the database method
@@ -59,11 +77,13 @@ class ProductCar extends Product
     {
         $images = implode(',', $this->images);
         $check = $dbHandler->query("SELECT * FROM cars WHERE original_id = ? LIMIT 1", [$this->id]);
-        if($check->num_rows() == 0)
+        if($check->num_rows() == 0) {
             $dbHandler->query("INSERT INTO cars VALUES(NULL, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?, ?, ?, NULL)",
                 [$this->brand, $this->model, $this->engine, $this->year, $this->hp, $this->mileage, $this->color, 
                 $this->damaged, $this->automated, $this->fuel, $this->countryFrom, $this->url, $this->id, $this->price, 
                 $this->region, $this->city, $this->description, $images]);
+            $dbHandler->query("UPDATE cached SET value = ? WHERE name = ?", [time(), 'LAST_OLX_CAR']);
+        }
     }
 
     /**

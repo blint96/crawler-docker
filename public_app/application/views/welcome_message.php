@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<title>Statystyki</title>
 
 	<style type="text/css">
 
@@ -68,22 +68,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+	<h1>Statystyki</h1>
 
 	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+		<p><strong>Ilość aut z OLX:</strong> <?=$olx_count;?></p>
+		<p><strong>Ilość aut z Otomoto:</strong> <?=$om_count;?></p>
+		
+		<hr>
 
-		<p>If you would like to edit this page you'll find it located at:</p>
+		<p><strong>Ilość nieodwiedzonych aut OLX:</strong> <?=$lolx_count;?></p>
+		<p><strong>Ilość nieodwiedzonych aut Otomoto:</strong> <?=$lom_count;?></p>
+
+		<hr>
+
+		<?php if((int) $last_olx->value < time() - 120): ?>
+			<p style="color: red;"><strong>!!! Ostatnia aktualizacja bazy aut z olx:</strong> <?=date('Y-m-d H:i:s', $last_olx->value);?></p>
+		<?php else: ?>
+			<p><strong>Ostatnia aktualizacja bazy aut z olx:</strong> <?=date('Y-m-d H:i:s', $last_olx->value);?></p>
+		<?php endif; ?>
+
+		<?php if((int) $last_otomoto->value < time() - 120): ?>
+			<p style="color: red;"><strong>!!! Ostatnia aktualizacja bazy aut z otomoto:</strong> <?=date('Y-m-d H:i:s', $last_otomoto->value);?></p>
+		<?php else: ?>
+			<p><strong>Ostatnia aktualizacja bazy aut z otomoto:</strong> <?=date('Y-m-d H:i:s', $last_otomoto->value);?></p>
+		<?php endif; ?>
+
+		<p><strong>Aktualny czas serwera:</strong> <?=date('Y-m-d H:i:s', time());?></p>
+
+		<!--<p>If you would like to edit this page you'll find it located at:</p>
 		<code>application/views/welcome_message.php</code>
 
 		<p>The corresponding controller for this page is found at:</p>
 		<code>application/controllers/Welcome.php</code>
 
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>-->
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
+
+<script type="text/javascript">
+	setTimeout(function(){
+		window.location.reload(1);
+	}, 5000);
+</script>
 
 </body>
 </html>

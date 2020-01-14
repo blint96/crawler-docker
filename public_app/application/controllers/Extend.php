@@ -8,6 +8,8 @@ class Extend extends CI_Controller {
 
     private $directory = "cache/olx/";
 
+    private $pageLimit = 15;
+
     private $brands = [
         "alfa-romeo", "audi", "bmw", "cadillac", "chevrolet", "chrysler", "citroen", "dacia", "daewoo", "renault",
         "fiat", "ford", "honda", "hyundai", "jeep", "kia", "lexus", "mazda", "mercedes-benz", "mitsubishi", "nissan", "opel", "peugeot", "volkswagen", "toyota"
@@ -24,7 +26,7 @@ class Extend extends CI_Controller {
         $_brand = NULL; $_counter = 1;
         foreach($this->brands as $brand) {
             $counter = (int) file_get_contents($this->directory . $brand . ".txt");
-            if($counter < 500) {
+            if($counter < $this->pageLimit) {
                 $_brand = $brand;
                 $_counter = $counter;
                 break;
