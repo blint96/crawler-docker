@@ -73,8 +73,11 @@ class OTOMOTO_Cars_Core extends Core
         $finder = new \DomXPath($dom);
 
         // get item description from div #textContent
-        $offer_description = $finder->query("//*[contains(@class, 'offer-description__description')]");
-        $description = $offer_description[0]->nodeValue;
+		$offer_description = $finder->query("//*[contains(@class, 'offer-description__description')]");
+		if($offer_description->length == 0)
+			return true;
+		
+		$description = $offer_description[0]->nodeValue;
 
 		// product car instance
         $product = new ProductCar();

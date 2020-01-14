@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
+	private $brands = [
+        "alfa-romeo", "audi", "bmw", "cadillac", "chevrolet", "chrysler", "citroen", "dacia", "daewoo", "renault",
+        "fiat", "ford", "honda", "hyundai", "jeep", "kia", "lexus", "mazda", "mercedes-benz", "mitsubishi", "nissan", "opel", "peugeot", "volkswagen", "toyota"
+    ];
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -36,10 +41,18 @@ class Welcome extends CI_Controller {
 		$last_olx_car = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['LAST_OLX_CAR']);
 		$last_otomoto_car = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['LAST_OTOMOTO_CAR']);
 
+		$now_olx = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['OLX_NOW']);
+		$now_otomoto = $this->db->query("SELECT * FROM cached WHERE name = ? LIMIT 1", ['OTOMOTO_NOW']);
+
 		$data["olx_count"] = $olx->num_rows();
 		$data["om_count"] = $otomoto->num_rows();
 		$data["lolx_count"] = $links_olx->num_rows();
 		$data["lom_count"] = $links_otomoto->num_rows();
+
+		$data["now_olx"] = $now_olx->row()->value;
+		$data["now_otomoto"] = $now_otomoto->row()->value;
+
+		$data["brands"] = $this->brands;
 
 		$data["last_olx"] = $last_olx_car->row();
 		$data["last_otomoto"] = $last_otomoto_car->row();

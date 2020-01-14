@@ -33,6 +33,9 @@ class Extend extends CI_Controller {
             }
         }
 
+        // update now caching brand
+        $this->db->query("UPDATE cached SET value = ? WHERE name = ?", [$_brand, "OLX_NOW"]);
+
         if($_brand != NULL) {
             $starturl = "https://www.olx.pl/motoryzacja/samochody/" . $_brand . "/?page=" . $_counter;
             $crawler = new Crawler\CoreLinks($starturl, $this->db, "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0", 1, []);

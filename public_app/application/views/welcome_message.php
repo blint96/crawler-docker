@@ -95,6 +95,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<p><strong>Aktualny czas serwera:</strong> <?=date('Y-m-d H:i:s', time());?></p>
 
+		<hr>
+
+		<p>Postęp OLX</p>
+		<table style="width: 100%; color: #ffffff4f; margin-top: -10px;" cellspacing="0" cellpadding="0">
+			<tr>
+				<?php $found = false; ?>
+				<?php foreach($brands as $brand): ?>
+					<?php if($brand == $now_olx): ?>
+						<?php $found = true; ?>
+					<?php endif;?>
+
+					<td style="padding: 4px; background: <?=($found ? '#e6e6e6' : '#71b171');?>;">
+						<?=$brand;?>
+					</td>
+				<?php endforeach; ?>
+			</tr>
+		</table>
+
+
+		<p>Postęp OTOMOTO</p>
+		<table style="width: 100%; color: #ffffff4f; margin-top: -10px;" cellspacing="0" cellpadding="0">
+			<tr>
+				<?php $found = false; ?>
+				<?php foreach($brands as $brand): ?>
+					<?php if($brand == $now_otomoto): ?>
+						<?php $found = true; ?>
+					<?php endif;?>
+
+					<td style="padding: 4px; background: <?=($found ? '#e6e6e6' : '#71b171');?>;">
+						<?=$brand;?>
+					</td>
+				<?php endforeach; ?>
+			</tr>
+		</table>
+
 		<!--<p>If you would like to edit this page you'll find it located at:</p>
 		<code>application/views/welcome_message.php</code>
 
@@ -108,9 +143,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <script type="text/javascript">
-	setTimeout(function(){
+	/*setTimeout(function(){
 		window.location.reload(1);
-	}, 5000);
+	}, 5000);*/
 </script>
 
 </body>
