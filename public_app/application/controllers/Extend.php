@@ -8,7 +8,7 @@ class Extend extends CI_Controller {
 
     private $directory = "cache/olx/";
 
-    private $pageLimit = 15;
+    private $pageLimit = 50;
 
     private $brands = [
         "alfa-romeo", "audi", "bmw", "cadillac", "chevrolet", "chrysler", "citroen", "dacia", "daewoo", "renault",

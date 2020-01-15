@@ -105,7 +105,8 @@ class Otomoto extends CI_Controller {
 
 			$payload = json_encode($r);
 
-			$ch = curl_init('http://34.89.133.205/elasticsearch/auta/auto/' . $original_id);                                                                      
+            $ch = curl_init('http://34.89.133.205/elasticsearch/auta/auto/' . $original_id);       
+            //$ch = curl_init('http://34.89.133.205/elasticsearch/samochody/auto/' . $original_id);                                                                 
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -119,6 +120,8 @@ class Otomoto extends CI_Controller {
 			//var_dump($result);
 
 			$this->db->query("UPDATE cars_otomoto SET elastic = ? WHERE id = ?", [time(), $db_id]);
-		}
+        }
+        
+        echo '<html><head><meta http-equiv="refresh" content="1"></head></html>';
 	}
 }

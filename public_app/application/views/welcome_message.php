@@ -143,9 +143,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <script type="text/javascript">
-	/*setTimeout(function(){
+	setTimeout(function(){
 		window.location.reload(1);
-	}, 5000);*/
+	}, 5000);
 </script>
 
 </body>
